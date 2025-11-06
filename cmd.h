@@ -18,7 +18,7 @@ const Command commands[] = {
 const int command_num = sizeof(commands) / sizeof(commands[0]);
 
 int writeLed(char **args, int argc) {
-  if(argc < 2) Serial.println("[ERROR] Usage: ledOn(pin, value)"); return;
+  if(argc < 2) Serial.println("[ERROR] Usage: writeLed(pin, value)"); return;
 
   int8_t pin = atoi(args[0]);
   int8_t val = atoi(args[1]);
