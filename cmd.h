@@ -58,10 +58,9 @@ void writeLed(char **args, int argc)
 
 void echoCmd(char **args, int argc)
 {
-  if(argc < 1) Serial.println("[ERROR] Usage: echoCmd(msg)"); return;
+  if(argc < 1)
+  {Serial.println("[ERROR] Usage: echoCmd(msg)"); return;}
   Serial.println(args[0]);
-
-  Serial.println("written");
 }
 
 void sleepCmd(char **args, int argc)
