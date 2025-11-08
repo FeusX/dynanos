@@ -1,6 +1,8 @@
 #ifndef CMD_H
 #define CMD_H
 
+#include "script.h"
+
 #include <Arduino.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,8 +25,8 @@ const Command commands[] = {
   { "writeLed", writeLed },
   { "echoCmd", echoCmd},
   /*{ "HELP", help},
-  { "INPUT", getInput},
-  { "SCRIPT", scriptCmd},*/
+  { "INPUT", getInput},*/
+  { "SCRIPT", scriptCmd},
   { "sleepCmd", sleepCmd}
 };
 
@@ -59,13 +61,14 @@ void writeLed(char **args, int argc)
 void echoCmd(char **args, int argc)
 {
   if(argc < 1)
-  {Serial.println("[ERROR] Usage: echoCmd(msg)"); return;}
+  { Serial.println("[ERROR] Usage: echoCmd(msg)"); return; }
   Serial.println(args[0]);
 }
 
 void sleepCmd(char **args, int argc)
 {
-  if(argc < 1) Serial.println("nope"); return;
+  if(argc < 1)
+  { Serial.println("nope"); return; }
 
   delay(atoi(args[0]));
 }
