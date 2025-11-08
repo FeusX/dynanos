@@ -22,12 +22,13 @@ void echoCmd(char **args, int argc);
 void sleepCmd(char **args, int argc);
 
 const Command commands[] = {
-  { "writeLed", writeLed },
-  { "echoCmd", echoCmd},
+  {"writeLed", writeLed },
+  {"echoCmd", echoCmd},
   /*{ "HELP", help},
   { "INPUT", getInput},*/
-  { "SCRIPT", scriptCmd},
-  { "sleepCmd", sleepCmd}
+  {"SCRIPT", scriptCmd},
+  {"sleepCmd", sleepCmd},
+  {"RUN", runScriptCmd}
 };
 
 const int command_num = sizeof(commands) / sizeof(commands[0]);
