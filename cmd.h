@@ -121,16 +121,18 @@ void btd(char **args, int argc)
   if(argc != 1)
   { Serial.println("[ERROR] Usage: btd(binary)"); return; }
 
-  uint16_t bin = atoi(args[0]);
-
+  const char* bin = args[0];
   uint16_t dec = 0;
 
-  for(int i = 0; bin != 0; i++)
+  for(int i = 0; bin[i] != '\0'; i++)
   {
-    if(bin % 10 == 1)
-    { dec += (1 << i); }
-
-    bin = bin / 10;
+    dec <<= 1;
+    if(bin[i] == '1') dec |= 1;
+    else if(bin[i] != '0')
+    {
+      Serial.println("Invalid binary");
+      return;
+    }
   }
 
   Serial.println(dec);
