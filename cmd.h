@@ -20,16 +20,18 @@ void help(char **args, int argc);
 void readPin(char **args, int argc);
 void echoCmd(char **args, int argc);
 void sleepCmd(char **args, int argc);
+void btd(char **args, int argc);
 
 const Command commands[] = {
-  {"writePin", writePin },
+  {"writePin", writePin},
   {"echoCmd", echoCmd},
   {"HELP", help},
   {"readPin", readPin},
   {"SCRIPT", scriptCmd},
   {"sleepCmd", sleepCmd},
   {"RUN", runScriptCmd},
-  {"ntop", ntop}
+  {"ntop", ntop},
+  {"btd", btd}
 };
 
 const int command_num = sizeof(commands) / sizeof(commands[0]);
@@ -37,7 +39,7 @@ const int command_num = sizeof(commands) / sizeof(commands[0]);
 void writePin(char **args, int argc)
 {
   delay(10);
-  if(argc < 2)
+  if(argc != 2)
   {
     Serial.println("[ERROR] Usage: writePin(pin, value)"); 
     return;
@@ -62,14 +64,14 @@ void writePin(char **args, int argc)
 
 void echoCmd(char **args, int argc)
 {
-  if(argc < 1)
+  if(argc != 1)
   { Serial.println("[ERROR] Usage: echoCmd(msg)"); return; }
   Serial.println(args[0]);
 }
 
 void sleepCmd(char **args, int argc)
 {
-  if(argc < 1)
+  if(argc != 1)
   { Serial.println("[ERROR] Usage: sleepCmd(var)"); return; }
 
   static bool active = false;
@@ -95,7 +97,7 @@ void help(char **args, int argc)
 
 void readPin(char **args, int argc)
 {
-  if(argc < 1)
+  if(argc != 1)
   { Serial.println("[ERROR] Usage: readPin(pin)"); return; }
 
   int8_t pin = atoi(args[0]);
@@ -112,6 +114,26 @@ void readPin(char **args, int argc)
     Serial.print("digital: ");
     Serial.println(digitalRead(pin));
   }
+}
+
+void btd(char **args, int argc)
+{
+  if(argc != 1)
+  { Serial.println("[ERROR] Usage: btd(binary)"); return; }
+
+  uint16_t bin = atoi(args[0]);
+
+  uint16_t dec = 0;
+
+  for(int i = 0; bin != 0; i++)
+  {
+    if(bin % 10 == 1)
+    { dec += (1 << i); }
+
+    bin = bin / 10;
+  }
+
+  Serial.println(dec);
 }
 
 #endif
