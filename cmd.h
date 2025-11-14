@@ -15,12 +15,14 @@ typedef struct {
   CmdFunc func;
 } Command;
 
+//void checkArgc(char **args, int argc);
 void writePin(char **args, int argc);
 void help(char **args, int argc);
 void readPin(char **args, int argc);
 void echoCmd(char **args, int argc);
 void sleepCmd(char **args, int argc);
 void btd(char **args, int argc);
+void dtb(char **args, int argc); 
 
 const Command commands[] = {
   {"writePin", writePin},
@@ -31,7 +33,8 @@ const Command commands[] = {
   {"sleepCmd", sleepCmd},
   {"RUN", runScriptCmd},
   {"ntop", ntop},
-  {"btd", btd}
+  {"btd", btd},
+  {"dtb", dtb}
 };
 
 const int command_num = sizeof(commands) / sizeof(commands[0]);
@@ -136,6 +139,17 @@ void btd(char **args, int argc)
   }
 
   Serial.println(dec);
+}
+
+void dtb(char **args, int argc)
+{
+  uint16_t dec = (uint16_t)atoi(args[0]);
+
+  for(int8_t i = 15; i >= 0; i--)
+  {
+    Serial.print((dec & (1 << i)) ? '1' : '0');
+  }
+  Serial.println();
 }
 
 #endif
