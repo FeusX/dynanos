@@ -15,7 +15,6 @@ typedef struct {
   CmdFunc func;
 } Command;
 
-//void checkArgc(char **args, int argc);
 void writePin(char **args, int argc);
 void help(char **args, int argc);
 void readPin(char **args, int argc);
@@ -143,6 +142,8 @@ void btd(char **args, int argc)
 
 void dtb(char **args, int argc)
 {
+  if(argc != 1)
+  { Serial.println("[ERROR] Usage: dtb(decimal)"); return; }
   uint16_t dec = (uint16_t)atoi(args[0]);
 
   for(int8_t i = 15; i >= 0; i--)
