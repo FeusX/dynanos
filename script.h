@@ -65,7 +65,7 @@ void runScriptCmd(char **args, int argc)
 {
   if(script_count == 0)
   {
-    Serial.println("[SCRIPT] No stored commands!");
+    Serial.println("[ERROR] No stored commands.");
     return;
   }
 
