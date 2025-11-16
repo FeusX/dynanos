@@ -74,7 +74,7 @@ void runScriptCmd(char **args, int argc)
   for(int8_t i = 0; i < script_count; i++)
   {
     handleCmd(script[i]);
-    delay(50);
+    delay(25);
   }
 
   Serial.println("[SCRIPT] Done.");

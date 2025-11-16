@@ -21,7 +21,7 @@ void readPin(char **args, int argc);
 void echoCmd(char **args, int argc);
 void sleepCmd(char **args, int argc);
 void btd(char **args, int argc);
-void dtb(char **args, int argc); 
+void dtb(char **args, int argc);
 
 const Command commands[] = {
   {"writePin", writePin},
