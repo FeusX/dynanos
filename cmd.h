@@ -3,6 +3,7 @@
 
 #include "script.h"
 #include "ntop.h"
+#include "loop.h"
 
 #include <Arduino.h>
 #include <stdlib.h>
@@ -33,7 +34,9 @@ const Command commands[] = {
   {"RUN", runScriptCmd},
   {"ntop", ntop},
   {"btd", btd},
-  {"dtb", dtb}
+  {"dtb", dtb},
+  {"loopCmd", loopCmd},
+  {"LOOP", runLoop}
 };
 
 const int command_num = sizeof(commands) / sizeof(commands[0]);
