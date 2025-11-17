@@ -77,19 +77,15 @@ void echoCmd(char **args, int argc)
 void sleepCmd(char **args, int argc)
 {
   if(argc != 1)
-  { Serial.println("[ERROR] Usage: sleepCmd(var)"); return; }
+  { Serial.println("[ERROR] Usage: sleepCmd(milliseconds)"); return; }
 
-  static bool active = false;
-  static unsigned long end = 0;
-
-  unsigned long now = millis();
-  unsigned long dur = atoi(args[0]);
-
-  if(!active)
-  { end = now + dur; active = true; return; }
-
-  if(now >= end)
-  { active = false; return; }
+  unsigned long dur = atol(args[0]);
+  
+  if(dur > 0) 
+  {
+    delay(dur); 
+  }
+  Serial.println("Sleep finished.");
 }
 
 void help(char **args, int argc)
