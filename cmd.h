@@ -1,7 +1,6 @@
 #ifndef CMD_H
 #define CMD_H
 
-#include "script.h"
 #include "ntop.h"
 #include "loop.h"
 
@@ -29,9 +28,7 @@ const Command commands[] = {
   {"echoCmd", echoCmd},
   {"HELP", help},
   {"readPin", readPin},
-  {"SCRIPT", scriptCmd},
   {"sleepCmd", sleepCmd},
-  {"RUN", runScriptCmd},
   {"ntop", ntop},
   {"btd", btd},
   {"dtb", dtb},
@@ -64,7 +61,7 @@ void writePin(char **args, int argc)
   if(val > 1) analogWrite(pin, val);
   else digitalWrite(pin, val ? HIGH : LOW);
 
-  Serial.println("pinwritten");
+  Serial.println("Pin written.");
 }
 
 void echoCmd(char **args, int argc)
