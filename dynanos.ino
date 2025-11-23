@@ -53,7 +53,7 @@ void handleCmd(char *input)
     }
   }
 
-  Serial.print("[ERROR] Unknown command: ");
+  Serial.print(F("[ERROR] Unknown command: "));
   Serial.println(name);
 }
 
@@ -62,7 +62,7 @@ void setup()
 {
   Serial.begin(57600);
   Wire.begin();
-  Serial.println("ready");
+  Serial.println(F("ready"));
   delay(200);
 }
 

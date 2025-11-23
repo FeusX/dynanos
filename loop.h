@@ -1,7 +1,7 @@
 #ifndef LOOP_H
 #define LOOP_H
 
-#define MAX_LOOP_CMD 16
+#define MAX_LOOP_CMD 12
 #define MAX_LOOP_LINE 20
 
 #include <Arduino.h>
@@ -15,14 +15,14 @@ void handleCmd(char *input);
 void loopCmd(char **args, int argc)
 {
   if(argc != 1)
-  { Serial.println("[ERROR] Usage: loopCmd(times)"); return; }
+  { Serial.println(F("[ERROR] Usage: loopCmd(times)")); return; }
   
   total_iterations = atoi(args[0]);
 
   if(total_iterations < 1)
-  { Serial.println("[ERROR] Invalid number"); return; }
+  { Serial.println(F("[ERROR] Invalid number")); return; }
 
-  Serial.println("[LOOP MODE]\nInput exit() to exit.");
+  Serial.println(F("[LOOP MODE]\nInput exit() to exit."));
   
   stored_cmd_count = 0;
   
@@ -42,17 +42,17 @@ void loopCmd(char **args, int argc)
         index = 0;
 
         if(strlen(input) == 0) continue;
-        if(strcmp(input, "exit()") == 0) { Serial.println("[EXITING]"); return; }
+        if(strcmp(input, "exit()") == 0) { Serial.println(F("[EXITING]")); return; }
 
         if(stored_cmd_count < MAX_LOOP_CMD)
         {
           strncpy(loop_arr[stored_cmd_count], input, MAX_LOOP_LINE);
           loop_arr[stored_cmd_count][MAX_LOOP_LINE - 1] = '\0';
           stored_cmd_count++;
-          Serial.println("[SAVED]");
+          Serial.println(F("[SAVED]"));
         }
         else
-        { Serial.println("BUFFER FULL"); return; }
+        { Serial.println(F("BUFFER FULL")); return; }
       }
       else
       {
@@ -65,11 +65,11 @@ void loopCmd(char **args, int argc)
 void runLoop(char **args, int argc)
 {
   if(stored_cmd_count == 0)
-  { Serial.println("[ERROR] No stored commands."); return; }
+  { Serial.println(F("[ERROR] No stored commands.")); return; }
 
-  Serial.print("[LOOP] Running ");
+  Serial.print(F("[LOOP] Running "));
   Serial.print(total_iterations);
-  Serial.println(" times.");
+  Serial.println(F(" times."));
 
   for(int16_t i = 0; i < total_iterations; i++)
   {
@@ -80,7 +80,7 @@ void runLoop(char **args, int argc)
       handleCmd(temp_cmd);
     }
   }
-  Serial.println("[LOOP FINISHED]");
+  Serial.println(F("[LOOP FINISHED]"));
 }
 
 #endif

@@ -4,6 +4,8 @@
 #include <Wire.h>
 #include <Arduino.h>
 
+uint8_t addr;
+
 void readI2C(char **args, int argc);
 void writeI2C(char **args, int argc);
 void scanI2C(char **args, int argc);
@@ -13,28 +15,28 @@ void clearI2C(char **args, int argc);
 void readI2C(char **args, int argc)
 {
   if(argc != 2)
-  { Serial.println("[ERROR] Usage: readI2C(addr, reg)"); return; }
+  { Serial.println(F("[ERROR] Usage: readI2C(addr, reg)")); return; }
 
-  int8_t addr = (int8_t)strtol(args[0], NULL, 16);
+  addr = (int8_t)strtol(args[0], NULL, 16);
   int8_t reg = (int8_t)strtol(args[1], NULL, 16);
 
   Wire.beginTransmission(addr);
   Wire.write(reg);
 
   if(Wire.endTransmission() != 0)
-  { Serial.println("[ERROR] No ACK."); return; }
+  { Serial.println(F("[ERROR] No ACK.")); return; }
 
   Wire.requestFrom(addr, (uint8_t)1);
   if(Wire.available()) Serial.println(Wire.read());
-  else Serial.println("[ERROR] No data recieved.");
+  else Serial.println(F("[ERROR] No data recieved."));
 }
 
 void writeI2C(char **args, int argc)
 {
   if(argc < 2)
-  { Serial.println("[ERROR] Usage: writeI2C(addr, byte1, byte2, ...)"); return; }
+  { Serial.println(F("[ERROR] Usage: writeI2C(addr, byte1, byte2, ...)")); return; }
 
-  int8_t addr = (int8_t)strtol(args[0], NULL, 16);
+  addr = (int8_t)strtol(args[0], NULL, 16);
 
   Wire.beginTransmission(addr);
 
@@ -48,24 +50,24 @@ void writeI2C(char **args, int argc)
   }
 
   if(Wire.endTransmission() != 0)
-  { Serial.println("[ERROR] Failed to write."); }
-  else Serial.println("Written.");
+  { Serial.println(F("[ERROR] Failed to write.")); }
+  else Serial.println(F("Written."));
 }
 
 void scanI2C(char **args, int argc)
 {
-  Serial.println("Scanning...");
-  for(uint8_t addr = 1; addr < 127; addr++)
+  Serial.println(F("Scanning..."));
+  for(uint8_t i = 1; i < 127; i++)
   {
-    Wire.beginTransmission(addr);
+    Wire.beginTransmission(i);
     if(Wire.endTransmission() == 0)
     {
-      Serial.print("Device at 0x");
-      Serial.println(addr, HEX);
+      Serial.print(F("Device at 0x"));
+      Serial.println(i, HEX);
     }
   }
 
-  Serial.println("Scan complete.");
+Serial.println(F("Scan complete."));
 }
 
 void initI2C(char **args, int argc)
@@ -73,7 +75,7 @@ void initI2C(char **args, int argc)
   Wire.beginTransmission(0x3C);
   Wire.write(0x00);
 
-  uint8_t init_seq[] = {
+  static const uint8_t init_seq[] PROGMEM = {
     0xAE,       // display off
     0xD5, 0x80, // set clock div
     0xA8, 0x3F, // multiplex ratio (128x64)
@@ -91,10 +93,14 @@ void initI2C(char **args, int argc)
     0xA6,       // normal display (not inverted)
     0xAF        // display on
   };
-  Wire.write(init_seq, sizeof(init_seq));
 
-  if(Wire.endTransmission() == 0) Serial.println("Done");
-  else Serial.println("Failed");
+  addr = 0x3C;
+
+  for(uint8_t i = 0; i < sizeof(init_seq); i++)
+  { Wire.write(pgm_read_byte(&init_seq[i])); }
+
+  if(Wire.endTransmission() == 0) Serial.println(F("Done"));
+  else Serial.println(F("Failed"));
 }
 
 void clearI2C(char **args, int argc)
@@ -122,7 +128,7 @@ void clearI2C(char **args, int argc)
     }
   }
 
-  Serial.println("Screen cleared.");
+  Serial.println(F("Screen cleared."));
 }
 
 #endif

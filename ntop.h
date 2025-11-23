@@ -17,10 +17,10 @@ static void ntop(char **args, int argc)
 {
   unsigned long total = millis() * 1000;
 
-  Serial.println("[NTOP]");
+  Serial.println(F("[NTOP]"));
   Serial.print(F("CPU: "));
   Serial.print(100.0 * busy / total, 2);
-  Serial.println("%");
+  Serial.println(F("%"));
 
   Serial.print(F("RAM: "));
   Serial.print(2048 - free_ram());

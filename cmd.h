@@ -49,7 +49,7 @@ void writePin(char **args, int argc)
   delay(10);
   if(argc != 2)
   {
-    Serial.println("[ERROR] Usage: writePin(pin, value)"); 
+    Serial.println(F("[ERROR] Usage: writePin(pin, value)")); 
     return;
   }
 
@@ -60,27 +60,27 @@ void writePin(char **args, int argc)
 
   if(val > 255)
   {
-    Serial.println("[ERROR] Value can't be greater than 255");
+    Serial.println(F("[ERROR] Value can't be greater than 255"));
     return;
   }
 
   if(val > 1) analogWrite(pin, val);
   else digitalWrite(pin, val ? HIGH : LOW);
 
-  Serial.println("Pin written.");
+  Serial.println(F("Pin written."));
 }
 
 void echoCmd(char **args, int argc)
 {
   if(argc != 1)
-  { Serial.println("[ERROR] Usage: echoCmd(msg)"); return; }
+  { Serial.println(F("[ERROR] Usage: echoCmd(msg)")); return; }
   Serial.println(args[0]);
 }
 
 void sleepCmd(char **args, int argc)
 {
   if(argc != 1)
-  { Serial.println("[ERROR] Usage: sleepCmd(milliseconds)"); return; }
+  { Serial.println(F("[ERROR] Usage: sleepCmd(milliseconds)")); return; }
 
   unsigned long dur = atol(args[0]);
   
@@ -88,7 +88,7 @@ void sleepCmd(char **args, int argc)
   {
     delay(dur); 
   }
-  Serial.println("Sleep finished.");
+  Serial.println(F("Sleep finished."));
 }
 
 void help(char **args, int argc)
@@ -102,7 +102,7 @@ void help(char **args, int argc)
 void readPin(char **args, int argc)
 {
   if(argc != 1)
-  { Serial.println("[ERROR] Usage: readPin(pin)"); return; }
+  { Serial.println(F("[ERROR] Usage: readPin(pin)")); return; }
 
   int8_t pin = atoi(args[0]);
 
@@ -110,12 +110,12 @@ void readPin(char **args, int argc)
 
   if(pin >= A0 && pin < A7)
   {
-    Serial.print("analog: ");
+    Serial.print(F("analog: "));
     Serial.println(analogRead(pin));
   }
   else
   {
-    Serial.print("digital: ");
+    Serial.print(F("digital: "));
     Serial.println(digitalRead(pin));
   }
 }
@@ -123,7 +123,7 @@ void readPin(char **args, int argc)
 void btd(char **args, int argc)
 {
   if(argc != 1)
-  { Serial.println("[ERROR] Usage: btd(binary)"); return; }
+  { Serial.println(F("[ERROR] Usage: btd(binary)")); return; }
 
   const char* bin = args[0];
   uint16_t dec = 0;
@@ -134,7 +134,7 @@ void btd(char **args, int argc)
     if(bin[i] == '1') dec |= 1;
     else if(bin[i] != '0')
     {
-      Serial.println("Invalid binary");
+      Serial.println(F("Invalid binary"));
       return;
     }
   }
@@ -145,7 +145,7 @@ void btd(char **args, int argc)
 void dtb(char **args, int argc)
 {
   if(argc != 1)
-  { Serial.println("[ERROR] Usage: dtb(decimal)"); return; }
+  { Serial.println(F("[ERROR] Usage: dtb(decimal)")); return; }
   uint16_t dec = (uint16_t)atoi(args[0]);
 
   for(int8_t i = 15; i >= 0; i--)
