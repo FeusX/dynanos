@@ -75,7 +75,7 @@ void initI2C(char **args, int argc)
   Wire.beginTransmission(0x3C);
   Wire.write(0x00);
 
-  static const uint8_t init_seq[] PROGMEM = {
+  static const uint8_t init_seq[] = {
     0xAE,       // display off
     0xD5, 0x80, // set clock div
     0xA8, 0x3F, // multiplex ratio (128x64)
@@ -96,8 +96,7 @@ void initI2C(char **args, int argc)
 
   addr = 0x3C;
 
-  for(uint8_t i = 0; i < sizeof(init_seq); i++)
-  { Wire.write(pgm_read_byte(&init_seq[i])); }
+  Wire.write(init_seq, sizeof(init_seq));
 
   if(Wire.endTransmission() == 0) Serial.println(F("Done"));
   else Serial.println(F("Failed"));
