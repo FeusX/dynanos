@@ -4,6 +4,7 @@
 #include "ntop.h"
 #include "loop.h"
 #include "protocol.h"
+#include "calc.h"
 
 #include <Arduino.h>
 #include <stdlib.h>
