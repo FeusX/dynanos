@@ -67,7 +67,7 @@ void scanI2C(char **args, int argc)
     }
   }
 
-Serial.println(F("Scan complete."));
+  Serial.println(F("Scan complete."));
 }
 
 void initI2C(char **args, int argc)

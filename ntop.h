@@ -5,7 +5,7 @@
 
 static volatile unsigned long busy = 0; 
 
-static int free_ram()
+static int16_t free_ram()
 {
   extern int16_t __heap_start, *__brkval;
   int16_t v;
