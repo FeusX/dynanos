@@ -23,6 +23,7 @@ void echoCmd(char **args, int argc);
 void sleepCmd(char **args, int argc);
 void btd(char **args, int argc);
 void dtb(char **args, int argc);
+void assign(char **args, int argc);
 
 const Command commands[] = {
   {"writePin", writePin},
@@ -39,7 +40,8 @@ const Command commands[] = {
   {"writeI2C", writeI2C},
   {"scanI2C", scanI2C},
   {"initI2C", initI2C},
-  {"clearI2C", clearI2C}
+  {"clearI2C", clearI2C},
+  {"assign", assign}
 };
 
 const int command_num = sizeof(commands) / sizeof(commands[0]);
@@ -153,6 +155,11 @@ void dtb(char **args, int argc)
     Serial.print((dec & (1 << i)) ? '1' : '0');
   }
   Serial.println();
+}
+
+void assign(char **args, int argc)
+{
+  // take 2 or 3 arguements to assign a command like: assign(PIN, MODE, CMD)
 }
 
 #endif
