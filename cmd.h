@@ -4,6 +4,7 @@
 #include "ntop.h"
 #include "loop.h"
 #include "protocol.h"
+#include "macro.h"
 
 #include <Arduino.h>
 #include <stdlib.h>
@@ -155,11 +156,6 @@ void dtb(char **args, int argc)
     Serial.print((dec & (1 << i)) ? '1' : '0');
   }
   Serial.println();
-}
-
-void assign(char **args, int argc)
-{
-  // take 2 or 3 arguements to assign a command like: assign(PIN, MODE, CMD)
 }
 
 #endif
